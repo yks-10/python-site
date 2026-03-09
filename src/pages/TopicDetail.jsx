@@ -11,6 +11,7 @@ import Sidebar from '../components/Layout/Sidebar';
 import LevelBadge from '../components/UI/LevelBadge';
 import CodeBlock from '../components/UI/CodeBlock';
 import { usePyodide } from '../hooks/usePyodide';
+import { useSEO } from '../hooks/useSEO';
 
 // Parse markdown-ish content into structured blocks
 function parseContent(content) {
@@ -432,6 +433,52 @@ function CodePlayground({ defaultCode = '# Try it here!\nprint("Hello, PyPath!")
   );
 }
 
+function TopicSEO({ topic }) {
+  const levelLabel = topic?.levelLabel ?? 'Python';
+  const sectionTitle = topic?.sectionTitle ?? 'Programming';
+  const topicTitle = topic?.title ?? 'Python Topic';
+
+  useSEO({
+    title: `${topicTitle} — Python ${levelLabel} Guide`,
+    description: `Learn ${topicTitle} in Python. ${
+      topic?.whatYoullLearn?.[0] ? `${topic.whatYoullLearn[0]}.` : ''
+    } Part of the PyPath ${levelLabel} curriculum — structured lessons with code examples.`,
+    path: `/topic/${topic?.id ?? ''}`,
+    type: 'article',
+    keywords: [
+      `Python ${topicTitle}`, `${topicTitle} tutorial`,
+      `Python ${sectionTitle}`, `${levelLabel} Python`,
+    ],
+  });
+
+  // Inject BreadcrumbList JSON-LD for Google Rich Results
+  useEffect(() => {
+    if (!topic) return;
+    const id = 'breadcrumb-jsonld';
+    let el = document.getElementById(id);
+    if (!el) {
+      el = document.createElement('script');
+      el.id = id;
+      el.type = 'application/ld+json';
+      document.head.appendChild(el);
+    }
+    el.textContent = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home',       item: 'https://www.py-path.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Curriculum', item: 'https://www.py-path.com/curriculum' },
+        { '@type': 'ListItem', position: 3, name: levelLabel,   item: `https://www.py-path.com/curriculum#${topic.levelId}` },
+        { '@type': 'ListItem', position: 4, name: sectionTitle  },
+        { '@type': 'ListItem', position: 5, name: topicTitle,   item: `https://www.py-path.com/topic/${topic.id}` },
+      ],
+    });
+    return () => { document.getElementById(id)?.remove(); };
+  }, [topic, levelLabel, sectionTitle, topicTitle]);
+
+  return null;
+}
+
 export default function TopicDetail({ progress = {}, onMarkComplete, onMarkIncomplete }) {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -481,6 +528,7 @@ export default function TopicDetail({ progress = {}, onMarkComplete, onMarkIncom
 
   return (
     <div className="flex min-h-screen pt-14" style={{ background: '#0f1117' }} ref={topRef}>
+      <TopicSEO topic={topic} />
       {/* Sidebar */}
       <Sidebar
         progress={progress}
@@ -497,7 +545,7 @@ export default function TopicDetail({ progress = {}, onMarkComplete, onMarkIncom
         >
           <button
             onClick={() => setMobileSidebarOpen(true)}
-            className="flex items-center gap-2 font-mono text-xs px-3 py-1.5 rounded-lg text-[#9ca3af] hover:text-[#e8eaf0] transition-colors"
+            className="flex items-center gap-2 font-mono text-xs px-3 py-2.5 rounded-lg text-[#9ca3af] hover:text-[#e8eaf0] transition-colors min-h-[44px]"
             style={{ background: '#1a1f2e', border: '1px solid #2a3040' }}
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -509,9 +557,9 @@ export default function TopicDetail({ progress = {}, onMarkComplete, onMarkIncom
           </button>
 
           {/* Breadcrumb */}
-          <div className="flex items-center gap-1.5 font-mono text-xs text-[#6b7280] overflow-hidden">
-            <span className="truncate">{topic.levelLabel}</span>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#6b7280" strokeWidth="2">
+          <div className="flex items-center gap-1.5 font-mono text-xs text-[#6b7280] min-w-0 flex-1">
+            <span className="truncate max-w-[80px] sm:max-w-none">{topic.levelLabel}</span>
+            <svg className="flex-shrink-0" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#6b7280" strokeWidth="2">
               <path d="M9 18l6-6-6-6" />
             </svg>
             <span className="truncate">{topic.sectionTitle}</span>
@@ -696,7 +744,7 @@ export default function TopicDetail({ progress = {}, onMarkComplete, onMarkIncom
             )}
 
             {/* Prev / Next navigation */}
-            <div className="border-t border-[#2a3040] pt-8 grid grid-cols-2 gap-4">
+            <div className="border-t border-[#2a3040] pt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
               {prev ? (
                 <button
                   onClick={() => navigate(`/topic/${prev.id}`)}

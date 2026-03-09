@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
+import { useSEO } from '../hooks/useSEO';
 import { EditorState } from '@codemirror/state';
 import { EditorView, keymap, lineNumbers, highlightActiveLine } from '@codemirror/view';
 import { defaultKeymap, indentWithTab, historyKeymap, history } from '@codemirror/commands';
@@ -42,6 +43,16 @@ const compilerTheme = EditorView.theme({
 });
 
 export default function Compiler() {
+  useSEO({
+    title: 'Online Python Compiler — Run Python in Your Browser',
+    description: 'Free online Python compiler powered by Pyodide. Write and run Python code directly in your browser — no install needed. Supports the full Python standard library.',
+    path: '/compiler',
+    keywords: [
+      'online Python compiler', 'run Python in browser', 'Python online editor',
+      'Python playground', 'Pyodide compiler', 'Python REPL online',
+    ],
+  });
+
   const editorContainerRef = useRef(null);
   const editorViewRef = useRef(null);
   const [output, setOutput] = useState(null);
@@ -118,10 +129,10 @@ export default function Compiler() {
     >
       {/* Header */}
       <div
-        className="border-b border-[#2a3040] px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4"
+        className="border-b border-[#2a3040] px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-3"
         style={{ background: '#161b27' }}
       >
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 min-w-0">
           <div
             className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
             style={{ background: 'linear-gradient(135deg, #a855f7, #7c3aed)', boxShadow: '0 2px 8px rgba(168,85,247,0.3)' }}
@@ -131,13 +142,13 @@ export default function Compiler() {
               <polyline points="8 6 2 12 8 18" />
             </svg>
           </div>
-          <div>
+          <div className="min-w-0">
             <h1 className="font-mono font-bold text-[#e8eaf0] text-sm sm:text-base">Python Compiler</h1>
-            <p className="font-mono text-xs text-[#6b7280]">Powered by Pyodide — runs in your browser</p>
+            <p className="font-mono text-xs text-[#6b7280] truncate">Powered by Pyodide — runs in your browser</p>
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-shrink-0">
           {/* Pyodide status */}
           <div
             className="hidden sm:flex items-center gap-1.5 font-mono text-xs px-2.5 py-1 rounded-lg"
@@ -179,7 +190,7 @@ export default function Compiler() {
 
           <button
             onClick={handleClear}
-            className="font-mono text-xs px-3 py-1.5 rounded-lg transition-all duration-150"
+            className="font-mono text-xs px-3 py-2.5 rounded-lg transition-all duration-150 min-h-[44px]"
             style={{ background: '#1e2435', color: '#9ca3af', border: '1px solid #2a3040' }}
           >
             Clear
@@ -188,7 +199,7 @@ export default function Compiler() {
           <button
             onClick={handleRun}
             disabled={isRunning || status === 'error'}
-            className="flex items-center gap-1.5 font-mono text-sm px-4 py-1.5 rounded-lg transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex items-center gap-1.5 font-mono text-sm px-4 py-2.5 rounded-lg transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed min-h-[44px]"
             style={{
               background: isRunning ? 'rgba(168,85,247,0.2)' : 'linear-gradient(135deg, #a855f7, #7c3aed)',
               color: '#fff',
@@ -215,9 +226,9 @@ export default function Compiler() {
       </div>
 
       {/* Editor + Output split */}
-      <div className="flex-1 flex flex-col lg:flex-row overflow-hidden" style={{ minHeight: 0 }}>
+      <div className="flex-1 flex flex-col lg:flex-row" style={{ minHeight: 0 }}>
         {/* Editor pane */}
-        <div className="flex-1 flex flex-col border-b lg:border-b-0 lg:border-r border-[#2a3040]" style={{ minHeight: '300px' }}>
+        <div className="flex-1 flex flex-col border-b lg:border-b-0 lg:border-r border-[#2a3040]" style={{ minHeight: '280px' }}>
           <div
             className="flex items-center justify-between px-4 py-2 border-b border-[#2a3040]"
             style={{ background: '#161b27' }}
@@ -245,7 +256,7 @@ export default function Compiler() {
         </div>
 
         {/* Output pane */}
-        <div className="flex flex-col lg:w-[45%]" style={{ minHeight: '200px' }}>
+        <div className="flex flex-col lg:w-[45%]" style={{ minHeight: '180px' }}>
           <div
             className="flex items-center justify-between px-4 py-2 border-b border-[#2a3040]"
             style={{ background: '#161b27' }}

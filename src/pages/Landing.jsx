@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion, useInView, useMotionValue, useTransform, animate } from 'framer-motion';
 import { curriculum, allTopics, LEVELS } from '../data/curriculum';
 import Footer from '../components/Layout/Footer';
+import { useSEO } from '../hooks/useSEO';
 
 function AnimatedNumber({ target, suffix = '', prefix = '' }) {
   const ref = useRef(null);
@@ -131,7 +132,7 @@ function HeroCodeBlock() {
           <span className="ml-auto font-mono text-xs text-[#6b7280]">pypath.py</span>
         </div>
         {/* Code */}
-        <pre className="p-5 overflow-x-auto font-mono text-sm leading-relaxed">
+        <pre className="p-5 overflow-x-auto font-mono text-sm leading-relaxed" style={{ WebkitOverflowScrolling: 'touch', touchAction: 'pan-x pan-y' }}>
           {CODE_SNIPPET.split('\n').map((line, i) => (
             <motion.div
               key={i}
@@ -163,6 +164,13 @@ function colorize(line) {
 }
 
 export default function Landing({ totalCompleted = 0 }) {
+  useSEO({
+    title: 'Master Python. One Concept at a Time.',
+    description: 'PyPath is a free, structured Python curriculum with 200+ topics across 5 skill levels — from beginner syntax to CPython internals. Start learning Python today.',
+    path: '/',
+    keywords: ['master Python', 'Python roadmap', 'Python learning path', 'Python online course free'],
+  });
+
   const navigate = useNavigate();
   const heroRef = useRef(null);
 
@@ -174,7 +182,7 @@ export default function Landing({ totalCompleted = 0 }) {
       {/* Hero Section */}
       <section
         ref={heroRef}
-        className="relative min-h-screen flex items-center pt-14 overflow-hidden"
+        className="relative min-h-screen flex items-start sm:items-center pt-14"
       >
         {/* Background */}
         <div className="absolute inset-0 dot-bg opacity-40" />
@@ -185,7 +193,7 @@ export default function Landing({ totalCompleted = 0 }) {
           }}
         />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 grid lg:grid-cols-2 gap-16 items-center">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           {/* Left column */}
           <div>
             <motion.div
@@ -315,7 +323,7 @@ export default function Landing({ totalCompleted = 0 }) {
       {/* Stats Section */}
       <section className="py-16 border-y border-[#2a3040]" style={{ background: '#161b27' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8">
             {[
               { target: totalTopics, suffix: '+', label: 'Topics', sublabel: 'in depth', color: '#3b82f6' },
               { target: 5, suffix: '', label: 'Skill Levels', sublabel: 'Beginner → Mastery', color: '#facc15' },

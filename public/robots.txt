@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Don't index personal/utility pages
+Disallow: /dashboard
+
+# Sitemap location
+Sitemap: https://www.py-path.com/sitemap.xml

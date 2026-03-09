@@ -102,7 +102,7 @@ export default function TopNav({ totalCompleted = 0 }) {
           <div className="flex items-center gap-3">
             {totalCompleted > 0 && (
               <div
-                className="hidden sm:flex items-center gap-1.5 font-mono text-xs px-2.5 py-1.5 rounded-lg"
+                className="flex items-center gap-1.5 font-mono text-xs px-2.5 py-1.5 rounded-lg"
                 style={{ background: 'rgba(34,197,94,0.1)', color: '#22c55e', border: '1px solid rgba(34,197,94,0.3)' }}
               >
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -140,10 +140,11 @@ export default function TopNav({ totalCompleted = 0 }) {
               Start Learning
             </button>
 
-            {/* Mobile menu button */}
+            {/* Mobile menu button — min 44×44 touch target */}
             <button
-              className="md:hidden p-2 rounded-lg text-[#9ca3af] hover:text-[#e8eaf0] hover:bg-[#1e2435] transition-colors"
+              className="md:hidden w-11 h-11 flex items-center justify-center rounded-lg text-[#9ca3af] hover:text-[#e8eaf0] hover:bg-[#1e2435] transition-colors"
               onClick={() => setMobileOpen(v => !v)}
+              aria-label="Toggle menu"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 {mobileOpen ? (

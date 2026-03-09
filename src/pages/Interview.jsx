@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Footer from '../components/Layout/Footer';
+import { useSEO } from '../hooks/useSEO';
 
 const CATEGORIES = [
   { id: 'all', label: 'All', color: '#9ca3af' },
@@ -730,6 +731,17 @@ function QuestionCard({ q, index }) {
 }
 
 export default function Interview() {
+  useSEO({
+    title: 'Python Interview Questions — Basics to Advanced (2025)',
+    description: 'Top Python interview questions and answers for freshers and experienced developers. Covers OOP, data structures, generators, async, GIL, metaclasses, and more.',
+    path: '/interview',
+    keywords: [
+      'Python interview questions', 'Python interview questions and answers',
+      'Python coding interview', 'Python interview prep 2025',
+      'Python OOP interview', 'Python advanced interview questions',
+    ],
+  });
+
   const [activeCategory, setActiveCategory] = useState('all');
   const [activeDifficulty, setActiveDifficulty] = useState('all');
   const [search, setSearch] = useState('');
@@ -831,10 +843,10 @@ export default function Interview() {
           </div>
 
           {/* Difficulty filter */}
-          <div className="flex gap-1.5">
+          <div className="flex flex-wrap gap-1.5">
             <button
               onClick={() => setActiveDifficulty('all')}
-              className="font-mono text-xs px-3 py-1.5 rounded-lg transition-all"
+              className="font-mono text-xs px-3 py-2 rounded-lg transition-all min-h-[36px]"
               style={{
                 background: activeDifficulty === 'all' ? 'rgba(59,130,246,0.15)' : '#1a1f2e',
                 color: activeDifficulty === 'all' ? '#60a5fa' : '#6b7280',
@@ -847,7 +859,7 @@ export default function Interview() {
               <button
                 key={key}
                 onClick={() => setActiveDifficulty(key)}
-                className="font-mono text-xs px-3 py-1.5 rounded-lg transition-all"
+                className="font-mono text-xs px-3 py-2 rounded-lg transition-all min-h-[36px]"
                 style={{
                   background: activeDifficulty === key ? d.bg : '#1a1f2e',
                   color: activeDifficulty === key ? d.color : '#6b7280',
@@ -860,13 +872,14 @@ export default function Interview() {
           </div>
         </div>
 
-        {/* Category tabs */}
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 pb-3 flex gap-1.5 overflow-x-auto scrollbar-hide">
+        {/* Category tabs — right fade hints at horizontal scroll on mobile */}
+        <div className="relative max-w-4xl mx-auto">
+          <div className="px-4 sm:px-6 pb-3 flex gap-1.5 overflow-x-auto scrollbar-hide" style={{ WebkitOverflowScrolling: 'touch' }}>
           {CATEGORIES.map(cat => (
             <button
               key={cat.id}
               onClick={() => setActiveCategory(cat.id)}
-              className="font-mono text-xs px-3 py-1.5 rounded-lg whitespace-nowrap transition-all"
+              className="font-mono text-xs px-3 py-2 rounded-lg whitespace-nowrap transition-all min-h-[36px]"
               style={{
                 background: activeCategory === cat.id ? `${cat.color}18` : '#1a1f2e',
                 color: activeCategory === cat.id ? cat.color : '#6b7280',
@@ -881,6 +894,12 @@ export default function Interview() {
               )}
             </button>
           ))}
+          </div>
+          {/* Scroll-right fade affordance */}
+          <div
+            className="pointer-events-none absolute right-0 top-0 bottom-0 w-8 sm:hidden"
+            style={{ background: 'linear-gradient(to right, transparent, rgba(15,17,23,0.95))' }}
+          />
         </div>
       </div>
 
@@ -899,12 +918,12 @@ export default function Interview() {
           </div>
         ) : (
           <>
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
               <p className="font-mono text-xs text-[#6b7280]">
                 {filtered.length} question{filtered.length !== 1 ? 's' : ''}
                 {search && ` matching "${search}"`}
               </p>
-              <div className="flex gap-2">
+              <div className="flex flex-wrap gap-2">
                 {counts.easy > 0 && <span className="font-mono text-xs text-[#22c55e]">{counts.easy} easy</span>}
                 {counts.medium > 0 && <span className="font-mono text-xs text-[#facc15]">{counts.medium} medium</span>}
                 {counts.hard > 0 && <span className="font-mono text-xs text-[#ef4444]">{counts.hard} hard</span>}

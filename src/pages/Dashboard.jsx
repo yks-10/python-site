@@ -153,7 +153,7 @@ export default function Dashboard({ progress = {}, streak = 0, longestStreak = 0
               {continueTopic && (
                 <button
                   onClick={() => navigate(`/topic/${continueTopic.id}`)}
-                  className="hidden sm:flex items-center gap-2 font-mono text-sm px-4 py-2.5 rounded-xl flex-shrink-0 transition-all duration-150"
+                  className="flex items-center gap-2 font-mono text-sm px-4 py-2.5 rounded-xl flex-shrink-0 transition-all duration-150"
                   style={{
                     background: 'linear-gradient(135deg, #3b82f6, #2563eb)',
                     color: '#fff',
@@ -207,7 +207,7 @@ export default function Dashboard({ progress = {}, streak = 0, longestStreak = 0
             <h3 className="font-mono text-xs font-semibold text-[#6b7280] uppercase tracking-widest mb-5">
               Progress by Level
             </h3>
-            <div className="flex flex-wrap items-center justify-around gap-4">
+            <div className="grid grid-cols-3 sm:grid-cols-5 gap-4 place-items-center">
               {levelStats.map((level, i) => (
                 <motion.div
                   key={level.id}
@@ -309,7 +309,7 @@ export default function Dashboard({ progress = {}, streak = 0, longestStreak = 0
             <div className="space-y-3">
               {sectionStats.slice(0, 10).map((section, i) => (
                 <div key={`${section.levelId}-${section.sectionTitle}`} className="flex items-center gap-3">
-                  <span className="font-mono text-xs text-[#9ca3af] w-36 truncate flex-shrink-0">
+                  <span className="font-mono text-xs text-[#9ca3af] w-24 sm:w-36 truncate flex-shrink-0">
                     {section.sectionTitle}
                   </span>
                   <div className="flex-1 h-1.5 rounded-full bg-[#2a3040] overflow-hidden">

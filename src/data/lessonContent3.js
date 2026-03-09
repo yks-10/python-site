@@ -593,8 +593,8 @@ def create_html_element(tag: str, content: str, **attrs) -> str:
         return f"<{tag} {attr_str}>{content}</{tag}>"
     return f"<{tag}>{content}</{tag}>"
 
-print(create_html_element("a", "Click", href="https://pypath.dev", target="_blank"))
-# <a href="https://pypath.dev" target="_blank">Click</a>
+print(create_html_element("a", "Click", href="https://www.py-path.com", target="_blank"))
+# <a href="https://www.py-path.com" target="_blank">Click</a>
 
 print(create_html_element("p", "Hello!", class_="intro", id="main"))
 # <p class="intro" id="main">Hello!</p>

@@ -8,6 +8,9 @@ import TopicDetail from './pages/TopicDetail';
 import Dashboard from './pages/Dashboard';
 import Compiler from './pages/Compiler';
 import Interview from './pages/Interview';
+import About from './pages/About';
+import Contact from './pages/Contact';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 
 export default function App() {
   const location = useLocation();
@@ -68,6 +71,9 @@ export default function App() {
               />
             }
           />
+          <Route path="/about"          element={<About />} />
+          <Route path="/contact"         element={<Contact />} />
+          <Route path="/privacy-policy"  element={<PrivacyPolicy />} />
           {/* 404 fallback */}
           <Route
             path="*"

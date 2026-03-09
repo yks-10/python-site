@@ -1,0 +1,52 @@
+{
+  "name": "PyPath — Master Python",
+  "short_name": "PyPath",
+  "description": "Free structured Python curriculum — 200+ topics from beginner to mastery. Learn Python the right way.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0f1117",
+  "theme_color": "#0f1117",
+  "categories": ["education", "productivity"],
+  "lang": "en",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/og-image.png",
+      "sizes": "1200x630",
+      "type": "image/png",
+      "label": "PyPath home page"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Curriculum",
+      "short_name": "Curriculum",
+      "description": "Browse the full Python curriculum",
+      "url": "/curriculum",
+      "icons": [{ "src": "/favicon.svg", "sizes": "any" }]
+    },
+    {
+      "name": "Compiler",
+      "short_name": "Compiler",
+      "description": "Write and run Python in your browser",
+      "url": "/compiler",
+      "icons": [{ "src": "/favicon.svg", "sizes": "any" }]
+    },
+    {
+      "name": "Interview Prep",
+      "short_name": "Interview",
+      "description": "Python interview questions",
+      "url": "/interview",
+      "icons": [{ "src": "/favicon.svg", "sizes": "any" }]
+    }
+  ]
+}

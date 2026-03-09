@@ -62,7 +62,7 @@ export default function CodeBlock({ code, language = 'python', filename, showLin
           </span>
           <button
             onClick={handleCopy}
-            className="flex items-center gap-1.5 font-mono text-xs px-2.5 py-1 rounded transition-all duration-150"
+            className="flex items-center gap-1.5 font-mono text-xs px-3 py-2 rounded transition-all duration-150 min-h-[36px]"
             style={{
               background: copied ? 'rgba(34,197,94,0.1)' : 'rgba(42,48,64,0.6)',
               color: copied ? '#22c55e' : '#9ca3af',
@@ -90,7 +90,7 @@ export default function CodeBlock({ code, language = 'python', filename, showLin
       </div>
 
       {/* Code */}
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto" style={{ WebkitOverflowScrolling: 'touch', touchAction: 'pan-x' }}>
         <div className="flex" style={{ minWidth: 'max-content' }}>
           {showLineNumbers && (
             <div
@@ -103,7 +103,7 @@ export default function CodeBlock({ code, language = 'python', filename, showLin
             </div>
           )}
           <pre
-            className="!m-0 !p-4 flex-1 overflow-x-auto"
+            className="!m-0 !p-4 flex-1"
             style={{
               background: '#0d1117',
               borderRadius: 0,

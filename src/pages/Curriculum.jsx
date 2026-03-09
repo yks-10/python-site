@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { curriculum, allTopics, LEVELS } from '../data/curriculum';
 import CurriculumTree from '../components/Curriculum/CurriculumTree';
 import Footer from '../components/Layout/Footer';
+import { useSEO } from '../hooks/useSEO';
 
 const LEVEL_TABS = [
   { id: 'all', label: 'All Levels', emoji: '📚' },
@@ -15,6 +16,13 @@ const LEVEL_TABS = [
 ];
 
 export default function CurriculumPage({ progress = {} }) {
+  useSEO({
+    title: 'Python Curriculum — 200+ Topics Across 5 Skill Levels',
+    description: 'Explore the complete PyPath Python curriculum — beginner, intermediate, advanced, expert, and mastery tracks. 200+ structured topics with lessons, code examples, and challenges.',
+    path: '/curriculum',
+    keywords: ['Python syllabus', 'Python topics list', 'Python beginner to advanced', 'Python curriculum 2025'],
+  });
+
   const [searchQuery, setSearchQuery] = useState('');
   const [activeLevel, setActiveLevel] = useState('all');
   const location = useLocation();

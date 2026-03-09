@@ -9,7 +9,7 @@ function TopicItem({ topic, isActive, isComplete, onClick }) {
   return (
     <button
       onClick={() => onClick(topic.id)}
-      className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-left transition-all duration-150 group"
+      className="w-full flex items-center gap-2 px-3 py-2.5 rounded-lg text-left transition-all duration-150 group min-h-[44px]"
       style={{
         background: isActive ? 'rgba(59,130,246,0.1)' : 'transparent',
         borderLeft: isActive ? `2px solid #3b82f6` : '2px solid transparent',
@@ -54,7 +54,7 @@ function SectionGroup({ section, levelId, levelColor, progress, activeTopicId, o
     <div className="mb-1">
       <button
         onClick={() => setOpen(v => !v)}
-        className="w-full flex items-center gap-2 px-3 py-2 rounded-lg transition-colors hover:bg-[#1e2435] group"
+        className="w-full flex items-center gap-2 px-3 py-2.5 rounded-lg transition-colors hover:bg-[#1e2435] group min-h-[44px]"
       >
         <svg
           width="12" height="12"
@@ -124,7 +124,7 @@ function LevelGroup({ level, progress, activeTopicId, onTopicClick, defaultOpen 
     >
       <button
         onClick={() => setOpen(v => !v)}
-        className="w-full flex items-center gap-2.5 px-3 py-2.5 transition-colors hover:bg-[#1e2435]"
+        className="w-full flex items-center gap-2.5 px-3 py-3 transition-colors hover:bg-[#1e2435] min-h-[44px]"
         style={{ background: open ? '#1a1f2e' : '#161b27' }}
       >
         <span className="text-base">{levelInfo.emoji}</span>
@@ -254,14 +254,15 @@ export default function Sidebar({ progress = {}, mobileOpen, onMobileClose }) {
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
               transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-              className="fixed left-0 top-0 bottom-0 z-50 w-80 flex flex-col border-r border-[#2a3040] lg:hidden"
+              className="fixed left-0 top-0 bottom-0 z-50 w-[min(320px,85vw)] flex flex-col border-r border-[#2a3040] lg:hidden"
               style={{ background: '#0f1117' }}
             >
               <div className="flex items-center justify-between p-4 border-b border-[#2a3040]">
                 <span className="font-mono font-bold text-sm text-[#e8eaf0]">Curriculum</span>
                 <button
                   onClick={onMobileClose}
-                  className="p-1.5 rounded-lg text-[#9ca3af] hover:text-[#e8eaf0] hover:bg-[#1e2435]"
+                  className="w-11 h-11 flex items-center justify-center rounded-lg text-[#9ca3af] hover:text-[#e8eaf0] hover:bg-[#1e2435]"
+                  aria-label="Close sidebar"
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />

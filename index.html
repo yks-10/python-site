@@ -105,7 +105,29 @@
     }
     </script>
 
-    <!-- ── Google AdSense ────────────────────────────────────────────── -->
+    <!-- ── Google Consent Mode v2 (MUST be before AdSense) ─────────────
+         Sets all consent signals to "denied" by default for EEA/UK/CH users.
+         Google's CMP (Funding Choices) updates these to "granted" once the
+         user clicks Consent in the banner it automatically shows.          -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+
+      // Default: deny all until user consents (required for GDPR / Consent Mode v2)
+      gtag('consent', 'default', {
+        'ad_storage':          'denied',
+        'ad_user_data':        'denied',
+        'ad_personalization':  'denied',
+        'analytics_storage':   'denied',
+        'wait_for_update':     500        // ms to wait for CMP to update signals
+      });
+
+      // Redact ad-click data while consent is pending
+      gtag('set', 'ads_data_redaction', true);
+      gtag('set', 'url_passthrough', true);
+    </script>
+
+    <!-- ── Google AdSense (auto-ads + CMP consent banner) ────────────── -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2558134733813621"
          crossorigin="anonymous"></script>
 
